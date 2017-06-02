@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package es.ubu.lsi.modelo;
+
+/**
+ * Clase que implementa un mensaje.
+ * 
+ * @author Andrés Miguel Terán
+ * @author Francisco Saiz Güemes
+ */
+public class Mensaje {
+
+}

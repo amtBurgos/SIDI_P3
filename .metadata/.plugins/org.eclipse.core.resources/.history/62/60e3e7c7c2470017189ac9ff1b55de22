@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package es.ubu.lsi.modelo;
+
+/**
+ * @author Andres
+ *
+ */
+public class Mensaje {
+
+}

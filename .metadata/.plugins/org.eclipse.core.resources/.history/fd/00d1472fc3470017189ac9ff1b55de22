@@ -1,0 +1,38 @@
+package es.ubu.lsi.modelo;
+
+/**
+ * Clase que implementa un mensaje.
+ * 
+ * @author Andrés Miguel Terán
+ * @author Francisco Saiz Güemes
+ */
+public class Mensaje {
+
+	/**
+	 * Nombre de usuario.
+	 */
+	private String nickname;
+
+	/**
+	 * Mensaje que escribe el usuario.
+	 */
+	private String mensaje;
+
+	/**
+	 * Construye un mensaje
+	 * 
+	 * @param nickname
+	 *            nombre de usuario
+	 * @param mensaje
+	 *            mensaje
+	 */
+	public Mensaje(String nickname, String mensaje) {
+		this.nickname = nickname;
+		this.mensaje = mensaje;
+	}
+	
+	
+	public String getNickname(){
+		return nickname;
+	}
+}
