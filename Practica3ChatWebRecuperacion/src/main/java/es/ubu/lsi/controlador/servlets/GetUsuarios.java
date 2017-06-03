@@ -48,12 +48,7 @@ public class GetUsuarios extends HttpServlet {
 		// ejecución
 		if (manager == null) {
 			ServletContext context = getServletContext();
-			// if (context.getAttribute("manager") == null) {
-			// manager = Manager.getManagerSingleton();
-			// context.setAttribute("manager", manager);
-			// } else {
 			manager = (Manager) context.getAttribute("manager");
-			// }
 		}
 
 		// Obtenemos el nombre de usuario de la query string
@@ -65,9 +60,13 @@ public class GetUsuarios extends HttpServlet {
 		// Imprimimos los usuarios si no es el mismo que la peticion
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+
+		// Estilos
+		String estiloUsuario = " style=\"font-family: sans-serif; margin-top: 5px; margin-bottom: 5px; margin-left: 2px; font-size: small;\" ";
+
 		for (Usuario u : usuarios) {
 			if (!u.getNickname().equals(nickname)) {
-				out.print("<p>" + u.toString() + "</p>");
+				out.print("<p" + estiloUsuario + " >" + u.toString() + "</p>");
 			}
 		}
 

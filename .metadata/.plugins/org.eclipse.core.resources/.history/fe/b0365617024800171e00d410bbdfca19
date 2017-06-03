@@ -1,0 +1,8 @@
+/*
+Fichero CSS para la sala del chat.
+*/
+
+#html{
+	display: table;
+	margin:auto;
+}

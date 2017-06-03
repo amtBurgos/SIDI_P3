@@ -2,9 +2,6 @@ package es.ubu.lsi.controlador.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import es.ubu.lsi.controlador.Manager;
-import es.ubu.lsi.modelo.Usuario;
 
 /**
  * Comprueba si existe un usuario.
@@ -52,14 +48,12 @@ public class CheckUsuario extends HttpServlet {
 		if (manager == null) {
 			if (context.getAttribute("manager") == null) {
 				manager = Manager.getManagerSingleton();
+				// Lo dejamos en el contexto para los demás servlets
 				context.setAttribute("manager", manager);
 			} else {
 				manager = (Manager) context.getAttribute("manager");
 			}
 		}
-
-		LinkedList<Usuario> user = manager.getUsuarios();
-		int size = user.size();
 
 		// Comprobamos si el usuario que intenta entrar existe
 		if (manager.existeUsuario(nickname)) {
@@ -84,18 +78,16 @@ public class CheckUsuario extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("nickname", nickname);
 
-			// Guardamos la hora
-			int hora = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY);
-			int minutos = GregorianCalendar.getInstance().get(Calendar.MINUTE);
-
 			// Añadimos al usuario
-			boolean anadido = manager.anadirUsuario(nickname, hora + ":" + minutos);
+			boolean anadido = manager.anadirUsuario(nickname, manager.getHora());
 
 			// Redireccionamos a la sala
 			// response.sendRedirect("./Sala.jsp");
 
 			if (anadido == true) {
-				request.getRequestDispatcher("./vista/Sala.jsp").forward(request, response);
+				// request.getRequestDispatcher("./vista/Sala.jsp").forward(request,
+				// response);
+				response.sendRedirect("./vista/Sala.jsp");
 			} else {
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();

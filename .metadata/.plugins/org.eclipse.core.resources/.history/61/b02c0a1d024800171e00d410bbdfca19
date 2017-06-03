@@ -1,0 +1,12 @@
+/*
+Fichero CSS para la sala del chat.
+*/
+
+html{
+	display: table;
+	margin:auto;
+}
+
+h1{
+	text-align: center;
+}

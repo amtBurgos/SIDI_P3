@@ -1,5 +1,6 @@
 package es.ubu.lsi.controlador;
 
+import java.time.LocalTime;
 import java.util.LinkedList;
 import es.ubu.lsi.modelo.*;
 
@@ -43,6 +44,7 @@ public class Manager {
 	public static synchronized Manager getManagerSingleton() {
 		if (manager == null) {
 			manager = new Manager();
+			manager.anadirMensaje("SERVER", "Servidor iniciado", manager.getHora());
 		}
 		return manager;
 	}
@@ -59,7 +61,7 @@ public class Manager {
 	public synchronized boolean anadirUsuario(String nickname, String hora) {
 		boolean anadido = usuarios.add(new Usuario(nickname, hora));
 		if (anadido) {
-			anadirMensaje("SERVER", nickname + " se ha conectado.");
+			anadirMensaje("SERVER", "\"" + nickname + "\"" + " se ha conectado", hora);
 		}
 		return anadido;
 	}
@@ -79,10 +81,20 @@ public class Manager {
 		}
 		boolean borrado = usuarios.remove(borrar);
 		if (borrado) {
-			anadirMensaje("SERVER", nickname + " se ha desconectado");
+			anadirMensaje("SERVER", nickname + " se ha desconectado", getHora());
 		}
 		return borrado;
 
+	}
+
+	/**
+	 * Devuelve un string con la hora actual.
+	 * 
+	 * @return hora actual
+	 */
+	public String getHora() {
+		LocalTime t = LocalTime.now();
+		return "(" + t.getHour() + ":" + t.getMinute() + ":" + t.getSecond() + ")";
 	}
 
 	/**
@@ -110,8 +122,8 @@ public class Manager {
 	 *            mensaje mandado
 	 * @return true/false si se ha podido guardar el mensaje o no
 	 */
-	public synchronized boolean anadirMensaje(String nickname, String mensaje) {
-		return mensajes.add(new Mensaje(nickname, mensaje));
+	public synchronized boolean anadirMensaje(String nickname, String mensaje, String hora) {
+		return mensajes.add(new Mensaje(nickname, mensaje, hora));
 	}
 
 	/**

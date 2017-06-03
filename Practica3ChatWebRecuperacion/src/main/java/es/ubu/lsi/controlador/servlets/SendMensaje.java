@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.ubu.lsi.controlador.Manager;
 
@@ -51,10 +52,17 @@ public class SendMensaje extends HttpServlet {
 			}
 		}
 
+		// Cojemos la sesion
+		HttpSession session = request.getSession();
+
 		// Añadimos el mensaje que quiere enviar el usuario
-		String nickname = request.getParameter("nickname");
+		String nickname = (String) session.getAttribute("nickname");
 		String mensaje = request.getParameter("mensaje");
-		manager.anadirMensaje(nickname, mensaje);
+		if (nickname == null) {
+			nickname = "ERROR_NAME_NULL";
+		}
+		manager.anadirMensaje(nickname, mensaje, manager.getHora());
+		response.sendRedirect("./vista/Sala.jsp");
 	}
 
 	/**

@@ -1,0 +1,36 @@
+/*
+Fichero CSS para la sala del chat.
+*/
+html {
+	display: table;
+	margin: auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+h4 {
+	margin-bottom: 6px;
+}
+
+a, #divUsuariosConectados {
+	float: right;
+}
+
+#divEscribirMensaje {
+	float: left;
+}
+
+#divVerMensajes {
+	display: inline-block;
+}
+
+#textArea{
+	font-family: serif;
+}
+
+#botonesMensaje {
+	padding-top: 5px;
+}
+

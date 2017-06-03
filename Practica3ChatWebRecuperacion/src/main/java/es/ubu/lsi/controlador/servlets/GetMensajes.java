@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.ubu.lsi.controlador.Manager;
 import es.ubu.lsi.modelo.Mensaje;
-import es.ubu.lsi.modelo.Usuario;
 
 /**
  * Obtiene los mensajes que han mandado los usuarios.
@@ -61,11 +60,21 @@ public class GetMensajes extends HttpServlet {
 		// Imprimimos los mensajes
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+
+		// Estilos de cada mensaje
+		String estiloServidor = " style=\"font-family: sans-serif; text-align: center; font-size: x-small;\" ";
+		String estiloMensaje = " style=\"font-family: sans-serif; margin-top: 5px; margin-bottom: 5px; margin-left: 2px; font-size: small; background: bisque; border-radius: 10px; \" ";
+		String estiloUsuario = " style=\"font-family: sans-serif; margin-top: 5px; margin-bottom: 5px; margin-left: 2px; font-size: small; background: #c3ecf0; border-radius: 10px; \" ";
+
+		// Ponemos los mensajes
 		for (Mensaje m : mensajes) {
-			if (!m.getNickname().equals(nickname)) {
-				out.print("<p>- " + m.getNickname() + ": " + m.getMensaje() + "</p>");
+			if (m.getNickname().equals("SERVER")) {
+				out.print("<p" + estiloServidor + ">" + m.getHora() + " " + m.getMensaje() + "</p>");
+			} else if (!m.getNickname().equals(nickname)) {
+				out.print("<p" + estiloMensaje + ">" + m.getHora() + " " + m.getNickname() + " > " + m.getMensaje()
+						+ "</p>");
 			} else {
-				out.print("<p>- Yo: " + m.getMensaje() + "</p>");
+				out.print("<p" + estiloUsuario + ">" + m.getHora() + " Yo > " + m.getMensaje() + "</p>");
 			}
 		}
 

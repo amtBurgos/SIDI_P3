@@ -1,0 +1,137 @@
+package es.ubu.lsi.controlador;
+
+import java.util.LinkedList;
+import es.ubu.lsi.modelo.*;
+
+/**
+ * Clase que gestiona los usuarios que hay y sus mensajes.
+ * 
+ * @author Andrés Miguel Terán
+ * @author Francisco Saiz Güemes
+ */
+public class Manager {
+
+	/**
+	 * Lista con los usuarios del sistema.
+	 */
+	public LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
+
+	/**
+	 * Lista con los mensajes.
+	 */
+	public LinkedList<Mensaje> mensajes = new LinkedList<Mensaje>();
+
+	/**
+	 * Manager que gestionará los usuarios y los mensajes.
+	 */
+	private static Manager manager = null;
+
+	/**
+	 * Construye un manager para gestionar los mensajes y los usuarios.
+	 */
+	private Manager() {
+		this.usuarios = new LinkedList<Usuario>();
+		this.mensajes = new LinkedList<Mensaje>();
+	}
+
+	/**
+	 * Singleton que nos devuelve el único gestor que llevará los usuarios y los
+	 * mensajes.
+	 *
+	 * @return lista con todos los usuarios.
+	 */
+	public static synchronized Manager getManagerSingleton() {
+		if (manager == null) {
+			manager = new Manager();
+		}
+		return manager;
+	}
+
+	/**
+	 * Añade un usuario a la lista de usuarios.
+	 * 
+	 * @param nickname
+	 *            nombre del nuevo usuario
+	 * @param hora
+	 *            hora de conexion del usuario
+	 * @return true/false si se ha podido añadir el usuario o no
+	 */
+	public synchronized boolean anadirUsuario(String nickname, String hora) {
+		boolean anadido = usuarios.add(new Usuario(nickname, hora));
+		if (anadido) {
+			anadirMensaje("SERVER", nickname + " se ha conectado.");
+		}
+		return anadido;
+	}
+
+	/**
+	 * Elimina un usuario de la lista de usuarios.
+	 * 
+	 * @param nickname
+	 *            nombre del usuario a borrar.
+	 */
+	public synchronized boolean eliminarUsuario(String nickname) {
+		Usuario borrar = null;
+		for (Usuario u : usuarios) {
+			if (u.getNickname().equals(nickname)) {
+				borrar = u;
+			}
+		}
+		boolean borrado = usuarios.remove(borrar);
+		if (borrado) {
+			anadirMensaje("SERVER", nickname + " se ha desconectado");
+		}
+		return borrado;
+
+	}
+
+	/**
+	 * Devuelve los usuarios que hay conectados.
+	 * 
+	 * @return lista de usuarios conectados
+	 */
+	public synchronized LinkedList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	/**
+	 * Devuelve la lista con los mensajes.
+	 * 
+	 * @return lista de mensajes
+	 */
+	public synchronized LinkedList<Mensaje> getMensajes() {
+		return mensajes;
+	}
+
+	/**
+	 * Añade un mensaje a la lista
+	 * 
+	 * @param mensaje
+	 *            mensaje mandado
+	 * @return true/false si se ha podido guardar el mensaje o no
+	 */
+	public synchronized boolean anadirMensaje(String nickname, String mensaje) {
+		return mensajes.add(new Mensaje(nickname, mensaje));
+	}
+
+	/**
+	 * Comprueba si un usuario existe en el sistema.
+	 * 
+	 * @param nickname
+	 *            nombre de usuario a comprobar
+	 * @return true/false si existe o no
+	 */
+	public synchronized boolean existeUsuario(String nickname) {
+		boolean existe = false;
+		if (!usuarios.isEmpty()) {
+			for (Usuario u : usuarios) {
+				if (u.getNickname().toLowerCase().equals(nickname.toLowerCase())) {
+					existe = true;
+					break;
+				}
+			}
+		}
+		return existe;
+	}
+
+}
