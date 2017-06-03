@@ -14,7 +14,7 @@ public class Manager {
 	/**
 	 * Lista con los usuarios del sistema.
 	 */
-	private LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
+	public LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
 
 	/**
 	 * Lista con los mensajes.
@@ -77,7 +77,12 @@ public class Manager {
 				borrar = u;
 			}
 		}
-		return usuarios.remove(borrar);
+		boolean borrado = usuarios.remove(borrar);
+		if (borrado) {
+			anadirMensaje("SERVER", nickname + " se ha desconectado");
+		}
+		return borrado;
+
 	}
 
 	/**
@@ -85,7 +90,7 @@ public class Manager {
 	 * 
 	 * @return lista de usuarios conectados
 	 */
-	public LinkedList<Usuario> getUsuarios() {
+	public synchronized LinkedList<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
@@ -94,7 +99,7 @@ public class Manager {
 	 * 
 	 * @return lista de mensajes
 	 */
-	public LinkedList<Mensaje> getMensajes() {
+	public synchronized LinkedList<Mensaje> getMensajes() {
 		return mensajes;
 	}
 
@@ -116,7 +121,7 @@ public class Manager {
 	 *            nombre de usuario a comprobar
 	 * @return true/false si existe o no
 	 */
-	public boolean existeUsuario(String nickname) {
+	public synchronized boolean existeUsuario(String nickname) {
 		boolean existe = false;
 		if (!usuarios.isEmpty()) {
 			for (Usuario u : usuarios) {

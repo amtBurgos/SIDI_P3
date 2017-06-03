@@ -95,7 +95,7 @@ public class CheckUsuario extends HttpServlet {
 			// response.sendRedirect("./Sala.jsp");
 
 			if (anadido == true) {
-				request.getRequestDispatcher("./Sala.jsp").forward(request, response);
+				request.getRequestDispatcher("./vista/Sala.jsp").forward(request, response);
 			} else {
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();

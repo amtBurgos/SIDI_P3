@@ -49,12 +49,7 @@
 	%>
 	</h1>
 	<!-- Hiperenlace de logout -->
-	<a href="index.html">Logout <%
-		//Invalidamos sesion y borramos usuario
-		manager.eliminarUsuario(nickname);
-		session.invalidate();
-	%>
-	</a>
+	<a href="./Logout">Logout</a>
 	<!-- Estructura de la página -->
 	<div id="divPrincipal">
 		<!-- Div para escribir los mensajes -->
@@ -62,14 +57,11 @@
 
 		<!-- Div para ver los usuarios conectados -->
 		<div id="divUsuariosConectados">
-			<!-- <iframe src="./iframeJSP/iframeUsuarios.jsp" width="300" height="200"></iframe> -->
-			<!-- <iframe src="./GetUsuarios" width="300" height="200"> </iframe> -->
 			<iframe src="./GetUsuarios?nickname=<%out.print(nickname);%>" width="300" height="200"> </iframe>
 		</div>
 
 		<!-- Div para leer los mensajes que llegan -->
 		<div id="divVerMensajes">
-			<!-- <iframe src="iframeJSP/iframeMensajes.jsp" width="600" height="350"></iframe> -->
 			<iframe src="./GetMensajes?nickname=<%out.print(nickname);%>" width="600" height="350"></iframe>
 		</div>
 	</div>

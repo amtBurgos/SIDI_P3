@@ -10,13 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import es.ubu.lsi.controlador.Manager;
 import es.ubu.lsi.modelo.Usuario;
 
 /**
- * Obtiene los usuarios conectados al chat
+ * Obtiene los usuarios conectados al chat.
  * 
  * @author Andrés Miguel Terán
  * @author Francisco Saiz Güemes
@@ -43,19 +42,24 @@ public class GetUsuarios extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Comprobamos si existe el manager en este servlet
-		ServletContext context = getServletContext();
+
+		// Comprobamos si existe el manager en este servlet y si no lo cogemos
+		// del contexto, porque el CheckUsuario lo habrá dejado es su primera
+		// ejecución
 		if (manager == null) {
-			if (context.getAttribute("manager") == null) {
-				manager = Manager.getManagerSingleton();
-				context.setAttribute("manager", manager);
-			} else {
-				manager = (Manager) context.getAttribute("manager");
-			}
+			ServletContext context = getServletContext();
+			// if (context.getAttribute("manager") == null) {
+			// manager = Manager.getManagerSingleton();
+			// context.setAttribute("manager", manager);
+			// } else {
+			manager = (Manager) context.getAttribute("manager");
+			// }
 		}
 
-		// Obtenemos el nombre de usuario y la lista de usuarios
-		String nickname = (String) request.getParameter("nickname");
+		// Obtenemos el nombre de usuario de la query string
+		String nickname = request.getParameter("nickname");
+
+		// Obtenemos la lista con los usuarios conectados
 		LinkedList<Usuario> usuarios = manager.getUsuarios();
 
 		// Imprimimos los usuarios si no es el mismo que la peticion
@@ -63,7 +67,7 @@ public class GetUsuarios extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		for (Usuario u : usuarios) {
 			if (!u.getNickname().equals(nickname)) {
-				out.println(u.toString());
+				out.print("<p>" + u.toString() + "</p>");
 			}
 		}
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chat Room Inicio</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Sistemas Distribuidos - Practica 3 Segunda Convocatoria - 09/06/2017">
+<meta name="author" content="Andrés Miguel Terán">
+<meta name="author" content="Francisco Saiz Güemes">
+<script type="text/javascript" src="./vista/js/inicio.js"></script>
+</head>
+<body>
+	<h1>Chat Room</h1>
+	<!-- Creamos un formulario que valida el nickname antes de mandarlo al servidor -->
+	<form action="/CheckUsuario" method="post" name="formularioInicio"
+		onsubmit="return validarNickname()">
+		Nickname: <input type="text" name="nickname" required="required"
+			autofocus="autofocus"> <br> <input type="submit"
+			name="entrar" value="Entrar"> <input type="button"
+			name="borrar" value="Borrar" onclick="limpiarNickname()">
+	</form>
+</body>
+</html>

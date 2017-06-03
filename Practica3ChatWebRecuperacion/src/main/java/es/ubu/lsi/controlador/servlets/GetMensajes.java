@@ -16,7 +16,7 @@ import es.ubu.lsi.modelo.Mensaje;
 import es.ubu.lsi.modelo.Usuario;
 
 /**
- * Obtiene los mensajes que han mandado los usuarios
+ * Obtiene los mensajes que han mandado los usuarios.
  * 
  * @author Andrés Miguel Terán
  * @author Francisco Saiz Güemes
@@ -44,31 +44,28 @@ public class GetMensajes extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Comprobamos si existe el manager en este servlet
-		ServletContext context = getServletContext();
+		// Comprobamos si existe el manager en este servlet y si no lo cogemos
+		// del contexto, porque el CheckUsuario lo habrá dejado es su primera
+		// ejecución
 		if (manager == null) {
-			if (context.getAttribute("manager") == null) {
-				manager = Manager.getManagerSingleton();
-				context.setAttribute("manager", manager);
-			} else {
-				manager = (Manager) context.getAttribute("manager");
-			}
+			ServletContext context = getServletContext();
+			manager = (Manager) context.getAttribute("manager");
 		}
 
-		// Obtenemos el nombre de usuario pasado en la petición
+		// Obtenemos el nombre de usuario pasado en la query string
 		String nickname = request.getParameter("nickname");
 
 		// Obtenemos la lista de mensajes
 		LinkedList<Mensaje> mensajes = manager.getMensajes();
+
+		// Imprimimos los mensajes
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		// Los imprimimos
 		for (Mensaje m : mensajes) {
 			if (!m.getNickname().equals(nickname)) {
-				out.print("<p>- " + m.getNickname() + ": " + m.getMensaje() + "</p><br>");
+				out.print("<p>- " + m.getNickname() + ": " + m.getMensaje() + "</p>");
 			} else {
-				out.print("<p>- Yo: " + m.getMensaje() + "</p><br>");
+				out.print("<p>- Yo: " + m.getMensaje() + "</p>");
 			}
 		}
 
@@ -82,7 +79,6 @@ public class GetMensajes extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
