@@ -24,6 +24,20 @@ public class CheckUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Tipos de errores que se darán en este servlet.
+	 */
+	private enum ERROR {
+		/**
+		 * Error en el servidor al añadir un usuario.
+		 */
+		ERROR_SERVIDOR,
+		/**
+		 * Error porque ya existe el usuario a añadir.
+		 */
+		ERROR_LOGIN;
+	}
+
+	/**
 	 * Manager singleton de la aplicacion.
 	 */
 	private Manager manager = null;
@@ -41,10 +55,12 @@ public class CheckUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Cogemos el nickname
 		String nickname = request.getParameter("nickname");
 
-		ServletContext context = getServletContext();
 		// Comprobamos si existe el manager en este servlet
+		ServletContext context = getServletContext();
 		if (manager == null) {
 			if (context.getAttribute("manager") == null) {
 				manager = Manager.getManagerSingleton();
@@ -55,58 +71,107 @@ public class CheckUsuario extends HttpServlet {
 			}
 		}
 
-		// Comprobamos si el usuario que intenta entrar existe
-		if (manager.existeUsuario(nickname)) {
-			// Si existe informamos de que ya existe y los mandamos al index
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>El usuario ya existe</title>");
-			out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-			out.println("<meta http-equiv=\"refresh\" content=\"5;url=index.html\" />");
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h1>Error al hacer login</h1>");
-			out.println("<p style=\"color: red;\">El nombre de usuario '" + nickname + "' ya existe.</p><br>"
-					+ "<p>Se redirigirá a la página principal en 5 segundos</p>");
-			out.println("</body>");
-			out.println("</html>");
-			out.close();
-		} else {
-			// Si no existe creamos una sesion y lo redirigimos a la sala
-			HttpSession session = request.getSession(true);
-			session.setAttribute("nickname", nickname);
-
-			// Añadimos al usuario
-			boolean anadido = manager.anadirUsuario(nickname, manager.getHora());
-
-			// Redireccionamos a la sala
-			// response.sendRedirect("./Sala.jsp");
-
-			if (anadido == true) {
-				// request.getRequestDispatcher("./vista/Sala.jsp").forward(request,
-				// response);
+		// Si hemos salido de la sala pulsando el hiperenlace del indice, y
+		// tenemos la sesion abierta pues dejamos entrar al usuario si vuelve
+		// con el mismo nickname, y si ha puesto otro nickname cerramos la
+		// anterior sesion y creamos un usuario nuevo
+		HttpSession ses = request.getSession(false);
+		if (ses != null) {
+			String viejoNickname = (String) ses.getAttribute("nickname");
+			// Vemos si ha introducido el mismo nombre
+			if (viejoNickname.toLowerCase().equals(nickname.toLowerCase())) {
 				response.sendRedirect("./vista/Sala.jsp");
 			} else {
+				if (!manager.existeUsuario(nickname)) {
+					// Añadimos al usuario
+					boolean added = manager.anadirUsuario(nickname, manager.getHora());
+					if (added == true) {
+						// Quitamos el viejo de la aplicacion
+						manager.eliminarUsuario(viejoNickname);
+
+						// Ponemos los nuevos valores
+						ses.setAttribute("nickname", nickname);
+						response.sendRedirect("./vista/Sala.jsp");
+					} else {
+						// Si hay algun fallo al añadir mostramos el error
+						response.setContentType("text/html");
+						PrintWriter out = response.getWriter();
+						out.print(getErrorPage(ERROR.ERROR_SERVIDOR, nickname));
+						out.close();
+					}
+				} else {
+					// Si el nuevo con el que quiere entrar ya existe mostramos
+					// error
+					response.setContentType("text/html");
+					PrintWriter out = response.getWriter();
+					out.print(getErrorPage(ERROR.ERROR_LOGIN, nickname));
+					out.close();
+				}
+			}
+		} else {
+			// Si no hay ninguna session
+			// Comprobamos que el usuario que intenta entrar no exista ya
+			if (manager.existeUsuario(nickname)) {
+				// Si existe informamos de que ya existe y los mandamos al index
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
-				out.println("<html>");
-				out.println("<head>");
-				out.println("<title>El usuario ya existe</title>");
-				out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-				out.println("<meta http-equiv=\"refresh\" content=\"5;url=index.html\" />");
-				out.println("</head>");
-				out.println("<body>");
-				out.println("<h1>Error en el servidor</h1>");
-				out.println("<p style=\"color: red;\">El nombre de usuario '" + nickname
-						+ "' no se ha podido registrar en el servidor.</p><br>"
-						+ "<p>Se redirigirá a la página principal en 5 segundos</p>");
-				out.println("</body>");
-				out.println("</html>");
+				out.print(getErrorPage(ERROR.ERROR_LOGIN, nickname));
 				out.close();
+			} else {
+				// Si no existe creamos una sesion y lo redirigimos a la sala
+				HttpSession session = request.getSession(true);
+				session.setAttribute("nickname", nickname);
+
+				// Añadimos al usuario
+				boolean anadido = manager.anadirUsuario(nickname, manager.getHora());
+
+				if (anadido == true) {
+					// Redireccionamos a la sala
+					response.sendRedirect("./vista/Sala.jsp");
+				} else {
+					response.setContentType("text/html");
+					PrintWriter out = response.getWriter();
+					out.print(getErrorPage(ERROR.ERROR_SERVIDOR, nickname));
+					out.close();
+				}
 			}
 		}
+	}
+
+	/**
+	 * Pagina de error dependiendo si el error es que ya existe el usuario o que
+	 * un fallo de otro tipo en el servidor.
+	 * 
+	 * @param error
+	 *            tipo de error
+	 * @param nickname
+	 *            nombre de usuario
+	 * @return pagina de respuesta
+	 * @throws IOException
+	 *             IOException
+	 */
+	private String getErrorPage(ERROR error, String nickname) throws IOException {
+		String respuesta = "";
+		respuesta += "<html>";
+		respuesta += "<head>";
+		respuesta += "<title>Error</title>";
+		respuesta += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
+		respuesta += "<meta http-equiv=\"refresh\" content=\"5;url=index.html\" />";
+		respuesta += "<link rel=\"stylesheet\" href=\"./vista/css/comun.css\">";
+		respuesta += "</head>";
+		respuesta += "<body>";
+		if (error == ERROR.ERROR_SERVIDOR) {
+			respuesta += "<h1>Error en el servidor</h1>";
+			respuesta += "<p style=\"color: red;\">El nombre de usuario '" + nickname
+					+ "' no se ha podido registrar en el servidor.</p>";
+		} else if (error == ERROR.ERROR_LOGIN) {
+			respuesta += "<h1>Error al hacer login</h1>";
+			respuesta += "<p style=\"color: red;\">El nombre de usuario '" + nickname + "' ya existe.</p>";
+		}
+		respuesta += "<p>Se redirigirá a la página principal en 5 segundos</p>";
+		respuesta += "</body>";
+		respuesta += "</html>";
+		return respuesta;
 	}
 
 	/**

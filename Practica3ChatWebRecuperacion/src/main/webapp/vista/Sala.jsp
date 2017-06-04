@@ -4,14 +4,14 @@
 <%@page import="java.lang.String"%>
 
 <jsp:useBean id="nickname" scope="session" class="java.lang.String" />
-<jsp:useBean id="manager" type="es.ubu.lsi.controlador.Manager"
-	scope="application" />
 
-<%-- <jsp:useBean id="manager" scope="session" class="es.ubu.lsi.Manager" />
- --%>
 <%
-	//Manager manager = Manager.getManager();
-	nickname = (String) session.getAttribute("nickname");
+	// Si no tenemos sesión, redireccionamos al inicio
+	if (session == null) {
+		response.sendRedirect("../index.html");
+	} else {
+		nickname = (String) session.getAttribute("nickname");
+	}
 %>
 
 <!DOCTYPE html>
@@ -23,6 +23,7 @@
 <meta name="author" content="Andrés Miguel Terán">
 <meta name="author" content="Francisco Saiz Güemes">
 <link rel="stylesheet" href="./css/sala.css">
+<link rel="stylesheet" href="./css/comun.css">
 <script src="./js/sala.js"></script>
 <script type="text/javascript">
 	//establece el tiempo a 5 seg.
@@ -50,7 +51,7 @@
 	%>
 	</h1>
 	<!-- Hiperenlace de logout -->
-	<a href="../Logout">Logout</a>
+	<a id="logout" href="../Logout">Logout</a>
 	<br>
 	<!-- Estructura de la página -->
 	<div id="divMensajeUsuario">
@@ -59,8 +60,8 @@
 			<form action="../SendMensaje" method="post"
 				name="FormularioEnviarMensaje" onsubmit="return validarMensaje()">
 				<h4>Mensaje</h4>
-				<textarea id="textArea" rows="8" cols="45" name="mensaje" autofocus="autofocus"
-					required="required"></textarea>
+				<textarea id="textArea" rows="8" cols="45" name="mensaje"
+					autofocus="autofocus" required="required"></textarea>
 
 				<div id="botonesMensaje">
 					<input type="reset" value="Borrar"> <input type="submit"
@@ -72,6 +73,7 @@
 		<!-- Div para ver los usuarios conectados -->
 		<div id="divUsuariosConectados">
 			<h4>Usuarios conectados</h4>
+			<!-- Le pasamos al sevlet el nickname en la query string -->
 			<iframe src="../GetUsuarios?nickname=<%out.print(nickname);%>"
 				width="240" height="120"> </iframe>
 		</div>
@@ -79,9 +81,11 @@
 	<!-- Div para leer los mensajes que llegan -->
 	<div id="divVerMensajes">
 		<h4>Mensajes Recibidos</h4>
+		<!-- Le pasamos al sevlet el nickname en la query string -->
 		<iframe src="../GetMensajes?nickname=<%out.print(nickname);%>"
 			width="600" height="350"></iframe>
 	</div>
-	</div>
+	<br>
+	<a href="../index.html">Inicio</a>
 </body>
 </html>

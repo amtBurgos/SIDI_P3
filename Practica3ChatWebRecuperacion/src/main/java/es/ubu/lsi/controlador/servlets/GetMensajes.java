@@ -44,7 +44,7 @@ public class GetMensajes extends HttpServlet {
 			throws ServletException, IOException {
 
 		// Comprobamos si existe el manager en este servlet y si no lo cogemos
-		// del contexto, porque el CheckUsuario lo habrá dejado es su primera
+		// del contexto, porque el CheckUsuario lo habrá dejado en su primera
 		// ejecución
 		if (manager == null) {
 			ServletContext context = getServletContext();
@@ -64,19 +64,29 @@ public class GetMensajes extends HttpServlet {
 		// Estilos de cada mensaje
 		String estiloServidor = " style=\"font-family: sans-serif; text-align: center; font-size: x-small;\" ";
 		String estiloMensaje = " style=\"font-family: sans-serif; margin-top: 5px; margin-bottom: 5px; margin-left: 2px; font-size: small; background: bisque; border-radius: 10px; \" ";
-		String estiloUsuario = " style=\"font-family: sans-serif; margin-top: 5px; margin-bottom: 5px; margin-left: 2px; font-size: small; background: #c3ecf0; border-radius: 10px; \" ";
+		String estiloUsuario = " style=\"font-family: sans-serif; margin-top: 5px; margin-bottom: 5px; margin-left: 2px; font-size: small; background: #d1f5f8; border-radius: 10px; \" ";
 
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>Mensajes</title>");
+		out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+		out.println("</head>");
+		out.println("<body style=\"width: 565px; overflow-wrap: break-word;\" >");
+		
 		// Ponemos los mensajes
 		for (Mensaje m : mensajes) {
 			if (m.getNickname().equals("SERVER")) {
 				out.print("<p" + estiloServidor + ">" + m.getHora() + " " + m.getMensaje() + "</p>");
 			} else if (!m.getNickname().equals(nickname)) {
-				out.print("<p" + estiloMensaje + ">" + m.getHora() + " " + m.getNickname() + " > " + m.getMensaje()
+				out.print("<p" + estiloMensaje + "><b>" + m.getHora() + " " + m.getNickname() + "</b> > " + m.getMensaje()
 						+ "</p>");
 			} else {
-				out.print("<p" + estiloUsuario + ">" + m.getHora() + " Yo > " + m.getMensaje() + "</p>");
+				out.print("<p" + estiloUsuario + "><b>" + m.getHora() + " Yo > </b>" + m.getMensaje() + "</p>");
 			}
 		}
+
+		out.println("</body>");
+		out.println("</html>");
 
 		// Cerramos el writer
 		out.close();

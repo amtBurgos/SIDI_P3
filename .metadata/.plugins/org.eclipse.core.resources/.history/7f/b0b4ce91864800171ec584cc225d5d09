@@ -1,0 +1,15 @@
+/*
+Fichero CSS para el index.
+*/
+label {
+	font-size: small;
+}
+
+#divBotonesLogin {
+	margin-top: 5px;
+	text-align: right;
+}
+
+#borrarBtn {
+	margin-right: 5px;
+}

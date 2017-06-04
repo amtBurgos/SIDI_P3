@@ -1,25 +1,12 @@
 /*
 Fichero CSS para la sala del chat.
 */
-* {
-	font-family: sans-serif;
-}
-
-html {
-	display: table;
-	margin: auto;
-}
-
-h1 {
-	text-align: center;
-}
-
-h4 {
-	margin-bottom: 6px;
-}
-
-a, #divUsuariosConectados {
+#logout, #divUsuariosConectados {
 	float: right;
+}
+
+a {
+	font-size: small;
 }
 
 #divEscribirMensaje {
@@ -36,4 +23,6 @@ a, #divUsuariosConectados {
 
 #textArea {
 	font-size: small;
+	width: 330px;
+	height: 118px;
 }

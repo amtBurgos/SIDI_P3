@@ -1,0 +1,16 @@
+/*
+Fichero CSS para la sala del chat.
+*/
+* {
+	font-family: sans-serif;
+	font-size: small;
+}
+
+html {
+	display: table;
+	margin: auto;
+}
+
+h1 {
+	text-align: center;
+}

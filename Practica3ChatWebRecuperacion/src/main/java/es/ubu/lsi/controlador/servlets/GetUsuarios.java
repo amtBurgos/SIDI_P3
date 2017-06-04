@@ -44,7 +44,7 @@ public class GetUsuarios extends HttpServlet {
 			throws ServletException, IOException {
 
 		// Comprobamos si existe el manager en este servlet y si no lo cogemos
-		// del contexto, porque el CheckUsuario lo habrá dejado es su primera
+		// del contexto, porque el CheckUsuario lo habrá dejado en su primera
 		// ejecución
 		if (manager == null) {
 			ServletContext context = getServletContext();

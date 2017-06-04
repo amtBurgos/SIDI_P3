@@ -15,12 +15,12 @@ public class Manager {
 	/**
 	 * Lista con los usuarios del sistema.
 	 */
-	public LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
+	private LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
 
 	/**
 	 * Lista con los mensajes.
 	 */
-	public LinkedList<Mensaje> mensajes = new LinkedList<Mensaje>();
+	private LinkedList<Mensaje> mensajes = new LinkedList<Mensaje>();
 
 	/**
 	 * Manager que gestionará los usuarios y los mensajes.
@@ -61,7 +61,7 @@ public class Manager {
 	public synchronized boolean anadirUsuario(String nickname, String hora) {
 		boolean anadido = usuarios.add(new Usuario(nickname, hora));
 		if (anadido) {
-			anadirMensaje("SERVER", "\"" + nickname + "\"" + " se ha conectado", hora);
+			anadirMensaje("SERVER", nickname + " se ha conectado", hora);
 		}
 		return anadido;
 	}

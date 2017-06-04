@@ -1,0 +1,28 @@
+/*
+Fichero CSS para la sala del chat.
+*/
+* {
+	font-family: sans-serif;
+}
+
+html {
+	display: table;
+	margin: auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+label {
+	font-size: small;
+}
+
+#divBotonesLogin {
+	margin-top: 5px;
+	text-align: right;
+}
+
+#borrarBtn {
+	margin-right: 5px;
+}
