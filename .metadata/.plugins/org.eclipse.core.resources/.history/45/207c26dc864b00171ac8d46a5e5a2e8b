@@ -47,7 +47,6 @@ public class CheckUsuario extends HttpServlet {
 	 */
 	public CheckUsuario() {
 		super();
-		manager = new Manager();
 	}
 
 	/**
@@ -62,16 +61,15 @@ public class CheckUsuario extends HttpServlet {
 
 		// Comprobamos si existe el manager en este servlet
 		ServletContext context = getServletContext();
-		//if (manager == null) {
-			//if (context.getAttribute("manager") == null) {
-				//manager = Manager.getManagerSingleton();
+		if (manager == null) {
+			if (context.getAttribute("manager") == null) {
+				manager = Manager.getManagerSingleton();
 				// Lo dejamos en el contexto para los demás servlets
-						
 				context.setAttribute("manager", manager);
-		//	} else {
-				//manager = (Manager) context.getAttribute("manager");
-			//}
-		//}
+			} else {
+				manager = (Manager) context.getAttribute("manager");
+			}
+		}
 
 		// Si hemos salido de la sala pulsando el hiperenlace del indice, y
 		// tenemos la sesion abierta pues dejamos entrar al usuario si vuelve

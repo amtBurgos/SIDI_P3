@@ -44,12 +44,12 @@ public class SendMensaje extends HttpServlet {
 		ServletContext context = getServletContext();
 		// Comprobamos si existe el manager en este servlet
 		if (manager == null) {
-			//if (context.getAttribute("manager") == null) {
-			//	manager = Manager.getManagerSingleton();
-			//	context.setAttribute("manager", manager);
-			//} else {
+			if (context.getAttribute("manager") == null) {
+				manager = Manager.getManagerSingleton();
+				context.setAttribute("manager", manager);
+			} else {
 				manager = (Manager) context.getAttribute("manager");
-			//}
+			}
 		}
 
 		// Cojemos la sesion

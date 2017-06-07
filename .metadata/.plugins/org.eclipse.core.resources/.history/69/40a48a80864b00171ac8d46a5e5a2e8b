@@ -30,13 +30,12 @@ public class Manager {
 	/**
 	 * Construye un manager para gestionar los mensajes y los usuarios.
 	 */
-	/////////////////////////////////////////
-	public Manager() {
+	private Manager() {
 		this.usuarios = new LinkedList<Usuario>();
 		this.mensajes = new LinkedList<Mensaje>();
 		
 		
-		anadirMensaje("SERVER", "Servidor iniciado", getHora());
+		anadirMensaje("SERVER", "Servidor iniciado", manager.getHora());
 	}
 
 	/**

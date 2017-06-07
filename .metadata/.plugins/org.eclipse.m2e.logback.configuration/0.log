@@ -2811,3 +2811,27 @@
 2017-06-04 00:47:08,020 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
 2017-06-04 00:47:08,028 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2017-06-04 00:47:08,028 [Worker-30] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources
+2017-06-07 15:34:31,961 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:34:31,977 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
+2017-06-07 15:34:31,977 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:34:31,977 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources
+2017-06-07 15:37:45,390 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:37:45,390 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
+2017-06-07 15:37:45,390 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:37:45,390 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources
+2017-06-07 15:37:51,407 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:37:51,407 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
+2017-06-07 15:37:51,407 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:37:51,407 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources
+2017-06-07 15:39:17,196 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:39:17,196 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
+2017-06-07 15:39:17,196 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:39:17,196 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources
+2017-06-07 15:40:25,145 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:40:25,145 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
+2017-06-07 15:40:25,145 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:40:25,145 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources
+2017-06-07 15:41:48,384 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:41:48,384 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\main\resources
+2017-06-07 15:41:48,384 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-06-07 15:41:48,384 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Programas\workspace_SIDI\SIDI_P3\Practica3ChatWebRecuperacion\src\test\resources

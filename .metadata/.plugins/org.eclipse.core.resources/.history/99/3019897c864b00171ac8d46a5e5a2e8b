@@ -25,18 +25,14 @@ public class Manager {
 	/**
 	 * Manager que gestionará los usuarios y los mensajes.
 	 */
-	//private static Manager manager = null;
+	private static Manager manager = null;
 
 	/**
 	 * Construye un manager para gestionar los mensajes y los usuarios.
 	 */
-	/////////////////////////////////////////
-	public Manager() {
+	private Manager() {
 		this.usuarios = new LinkedList<Usuario>();
 		this.mensajes = new LinkedList<Mensaje>();
-		
-		
-		anadirMensaje("SERVER", "Servidor iniciado", getHora());
 	}
 
 	/**
@@ -45,13 +41,13 @@ public class Manager {
 	 *
 	 * @return lista con todos los usuarios.
 	 */
-//	public static synchronized Manager getManagerSingleton() {
-//		if (manager == null) {
-//			manager = new Manager();
-//			manager.anadirMensaje("SERVER", "Servidor iniciado", manager.getHora());
-//		}
-//		return manager;
-//	}
+	public static synchronized Manager getManagerSingleton() {
+		if (manager == null) {
+			manager = new Manager();
+			manager.anadirMensaje("SERVER", "Servidor iniciado", manager.getHora());
+		}
+		return manager;
+	}
 
 	/**
 	 * Añade un usuario a la lista de usuarios.
